@@ -3,7 +3,7 @@ import List from './components/List'
 import axios from "axios"
 import { baseURL } from './utils/constant'
 import Navbar from './components/Navbar'
-import Notemanager from './components/Notemanager'
+
 
 
 const App = () => {
