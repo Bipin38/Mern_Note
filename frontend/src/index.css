@@ -4,7 +4,9 @@
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
 }
-
+/* Navbar{
+  width: 100%;
+} */
 main{
   max-width: fit-content;
   margin: 0 auto;
@@ -45,4 +47,9 @@ li{
 
 .icon{
   cursor: pointer;
+}
+
+.titles{
+  display: flex;
+  flex-direction: row;
 }

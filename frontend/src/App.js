@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react'
 import List from './components/List'
 import axios from "axios"
 import { baseURL } from './utils/constant'
+import Navbar from './components/Navbar'
+import Notemanager from './components/Notemanager'
 
 
 const App = () => {
 
   const [input, setInput] = useState("");
+  const [titleInput, setTitleInput] = useState("");
   const [tasks, setTask] = useState([]);
   const [updateUI, setUpdateUI] = useState(false)
   const [updateId, setUpdateId] = useState(null)
@@ -21,17 +24,28 @@ const App = () => {
   },[updateUI]);
 
   const addTask = () => {
-    axios.post(`${baseURL}/save`, {task:input})
+    axios.post(`${baseURL}/save`, {title:titleInput ,task:input})
     .then((res)=>{
       console.log(res.data)
       setInput("");
+      setTitleInput("");
       setUpdateUI((prevState) => !prevState)
     })
   }
 
-  const updateMode = (id, text) => {
-    console.log(text);
+  const addTitle =() =>{
+    axios.post(`${baseURL}/save`, {title:titleInput})
+    .then((res)=>{
+      console.log(res.data)
+      // setTitleInput("");
+      setUpdateUI((prevState) => !prevState)
+    })
+  }
+
+  const updateMode = (id, text, title) => {
+    // console.log(text);
     setInput(text);
+    // setTitleInput(title);
     setUpdateId(id);
   }
 
@@ -43,23 +57,29 @@ const App = () => {
       setInput("")
     })
   }
+
+  const updateTitle = () =>{
+    axios.put(`${baseURL}/update/${updateId}`, {title:titleInput}).then((res)=>{
+      // console.log(res.data);
+      setUpdateUI((prevState) => !prevState)
+      setUpdateId(null)
+      setTitleInput("")
+    })
+  }
+
   return (
-    <main>
-      <h1 className="title">Crud Operation</h1>
+    <>
+      <Navbar />
+      <main>
 
-      <div className="input_holder">
-        <input 
-          type='text' 
-          value={input} 
-          onChange={(e)=>setInput(e.target.value)}
-        />
-        <button type='submit' onClick={updateId? updateTask: addTask}>{updateId ? "Update Task":"Add Task"}</button>
-      </div>
-
-      <ul>
-        {tasks.map(task => <List key={task._id} id={task._id} task={task.task} setUpdateUI={setUpdateUI} updateMode={updateMode}/>)}
-      </ul>
-    </main>
+      
+        <h1 className="title">Note Manager</h1>
+        <Notemanager/>
+        <ul>
+          {tasks.map((task,title, date) => <List key={task._id} date={task.date} id={task._id} task={task.task} title={task.title} setUpdateUI={setUpdateUI} updateMode={updateMode}/>)}
+        </ul>
+      </main>
+    </>
   )
 }
 

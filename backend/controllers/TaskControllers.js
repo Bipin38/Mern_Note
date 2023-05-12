@@ -6,9 +6,9 @@ module.exports.getTasks = async (req,res) =>{
 }
 
 module.exports.saveTasks = (req,res) =>{
-    const {task} = req.body 
+    const {title, task} = req.body 
 
-    TaskModel.create({task})
+    TaskModel.create({title,task})
     .then((data)=>{
         console.log("saved successfully...");
         res.status(201).send(data)
@@ -20,9 +20,9 @@ module.exports.saveTasks = (req,res) =>{
 
 module.exports.updateTasks = (req,res) =>{
     const {id} = req.params 
-    const {task} = req.body 
+    const {title, task} = req.body 
 
-    TaskModel.findByIdAndUpdate(id, {task})
+    TaskModel.findByIdAndUpdate(id, {title, task})
     .then(()=>{
         res.send("Updated Successfully")
     }).catch((err)=>{
