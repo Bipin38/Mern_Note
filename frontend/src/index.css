@@ -8,19 +8,32 @@
   width: 100%;
 } */
 main{
-  max-width: fit-content;
-  margin: 0 auto;
+  max-width: 100%;
+  margin: 10px;
+  padding: 10px;
 }
-
-.title{
-  text-align: center;
-  padding: 20px 0;
-}
-
-.input_holder{
+.bodysection{
+  width: 1500px;
   display: flex;
-  gap: 20px;
-  justify-content: center;
+  flex-direction: row;
+}
+.title {
+  padding: 20px 0;
+  text-align: center;
+}
+
+.listpart{
+  padding: 20px;
+  margin-left: 105px;
+  width: 600px;
+  background-color: aqua;
+}
+.listpart>h1{
+  text-align: center;
+}
+
+.form{
+  width: 500px;
 }
 
 input, button{
@@ -33,11 +46,12 @@ ul{
 }
 
 li{
-  background-color: rgb(216, 216, 216);
+  background-color: rgb(211, 162, 162);
   padding: 15px;
   margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
+  border-radius: 10px;
 }
 
 .icon_holder{
@@ -53,3 +67,11 @@ li{
   display: flex;
   flex-direction: row;
 }
+.navv{
+  width: 100%;
+}
+
+.container{
+  max-width: 100%;
+}
+
