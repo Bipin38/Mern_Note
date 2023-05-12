@@ -45,12 +45,12 @@ const App = () => {
   const updateMode = (id, text, title) => {
     // console.log(text);
     setInput(text);
-    // setTitleInput(title);
+    setTitleInput(title);
     setUpdateId(id);
   }
 
   const updateTask = ()=>{
-    axios.put(`${baseURL}/update/${updateId}`, {task: input}).then((res)=>{
+    axios.put(`${baseURL}/update/${updateId}`, {title:titleInput,task: input}).then((res)=>{
       console.log(res.data);
       setUpdateUI((prevState) => !prevState)
       setUpdateId(null)
@@ -58,14 +58,6 @@ const App = () => {
     })
   }
 
-  const updateTitle = () =>{
-    axios.put(`${baseURL}/update/${updateId}`, {title:titleInput}).then((res)=>{
-      // console.log(res.data);
-      setUpdateUI((prevState) => !prevState)
-      setUpdateId(null)
-      setTitleInput("")
-    })
-  }
 
   return (
     <>
@@ -74,7 +66,18 @@ const App = () => {
 
       
         <h1 className="title">Note Manager</h1>
-        <Notemanager/>
+        <form>
+          <div className="mb-3">
+              <label for="title" className="form-label">Note Title</label>
+              <input type="text" className="form-control" value={titleInput} onChange={e=>setTitleInput(e.target.value)} id="exampleInputEmail1" placeholder='Enter the title of your note' />
+          </div>
+
+          <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+              <textarea class="form-control" value={input} onChange={e=>setInput(e.target.value)} id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
+          <button type="submit" className="btn btn-primary" onClick={updateId ? updateTask : addTask}>{updateId ? "Update Task" : "Add Task"}</button>
+        </form>
         <ul>
           {tasks.map((task,title, date) => <List key={task._id} date={task.date} id={task._id} task={task.task} title={task.title} setUpdateUI={setUpdateUI} updateMode={updateMode}/>)}
         </ul>
